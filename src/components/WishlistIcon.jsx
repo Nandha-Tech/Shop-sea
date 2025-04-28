@@ -17,7 +17,7 @@ const WishlistIcon = () => {
       onClick={handleClick}
       style={{ position: "relative", cursor: "pointer", marginRight: "10px" }}
     >
-      <FaHeart size={22} color="red" />
+      <FaHeart size={22} color="white" />
       {wishlist.length > 0 && (
         <span
           style={{
