@@ -1,41 +1,30 @@
-// src/components/WishlistIcon.js
 import React from "react";
-import { FaHeart } from "react-icons/fa";
+import { Badge, IconButton, styled } from "@mui/material";
+import { Favorite } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  color: "white",
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+  },
+}));
 
 const WishlistIcon = () => {
   const wishlist = useSelector((state) => state.wishlist);
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/wishlist"); // Always navigate when clicked
+    navigate("/wishlist");
   };
 
   return (
-    <div
-      onClick={handleClick}
-      style={{ position: "relative", cursor: "pointer", marginRight: "10px" }}
-    >
-      <FaHeart size={22} color="white" />
-      {wishlist.length > 0 && (
-        <span
-          style={{
-            position: "absolute",
-            top: "-6px",
-            right: "-10px",
-            background: "white",
-            color: "red",
-            fontSize: "12px",
-            fontWeight: "bold",
-            borderRadius: "50%",
-            padding: "2px 5px",
-          }}
-        >
-          {wishlist.length}
-        </span>
-      )}
-    </div>
+    <StyledIconButton onClick={handleClick}>
+      <Badge badgeContent={wishlist.length} color="error" showZero={false}>
+        <Favorite />
+      </Badge>
+    </StyledIconButton>
   );
 };
 

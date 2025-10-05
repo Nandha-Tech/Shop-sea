@@ -12,7 +12,6 @@ import CartPage from "./components/CartPage";
 import Images from "./Images/shopify (1).png";
 import "./App.css";
 import ImageCarousel from "./components/ImageCarousel";
-
 import WishlistPage from "./components/WishlistPage";
 import WishlistIcon from "./components/WishlistIcon";
 
@@ -21,9 +20,11 @@ function AppContent() {
 
   return (
     <div className="App">
-      <header>
-        <img src={Images} alt="Shop Sea Logo" className="logo" />
-        <h1 className="Top">Shopz Sea</h1>
+      <header className="app-header">
+        <div className="header-left">
+          <img src={Images} alt="Shop Sea Logo" className="logo" />
+          <h1 className="Top">Shopz Sea</h1>
+        </div>
 
         <div className="header-icons">
           <WishlistIcon />

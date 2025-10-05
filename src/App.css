@@ -362,3 +362,62 @@ h1 {
   background-color: #f0f0f0;
   transition: background-color 0
 }
+/* General App styles */
+.App {
+  font-family: Arial, sans-serif;
+}
+
+/* Header styles */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #2196f3;
+  color: white;
+}
+
+/* Left section (logo + title) */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.Top {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/* Right section (icons) */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.4rem;
+}
+
+/* 🔹 Mobile Responsive */
+@media (max-width: 600px) {
+  .app-header {
+    padding: 8px 12px;
+  }
+
+  .logo {
+    width: 36px;
+  }
+
+  .Top {
+    font-size: 1.2rem;
+  }
+
+  .header-icons {
+    gap: 10px;
+    font-size: 1.2rem;
+  }
+}

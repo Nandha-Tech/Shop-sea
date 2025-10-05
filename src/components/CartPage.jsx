@@ -5,7 +5,7 @@ import {
   incrementQuantity,
   decrementQuantity,
 } from "../redux/cartSlice";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
@@ -22,18 +22,20 @@ const CartPage = () => {
       <button
         className="back-button"
         onClick={() => navigate(-1)}
-        style={{ marginBottom: "20px" }}
+        style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}
       >
         <FaArrowLeft style={{ marginRight: "6px" }} />
         Back
       </button>
-      <h2>Your Cart</h2>
+
+      <h2 style={{ marginBottom: "20px" }}>Your Cart</h2>
+
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <>
+        <div className="order-summary">
           {cartItems.map((item) => (
-            <div key={item.id} className="cart-item" style={styles.cartItem}>
+            <div key={item.id} style={styles.cartItem}>
               <img src={item.image} alt={item.name} style={styles.image} />
               <div style={styles.detailsContainer}>
                 <div style={styles.itemDetails}>
@@ -41,6 +43,8 @@ const CartPage = () => {
                   <p style={styles.description}>
                     <strong>Description:</strong> {item.description}
                   </p>
+
+                  {/* Quantity controls below name */}
                   <div style={styles.quantityControls}>
                     <button
                       onClick={() => dispatch(decrementQuantity(item.id))}
@@ -57,23 +61,26 @@ const CartPage = () => {
                     </button>
                   </div>
                 </div>
+
+                {/* Price + Trash Icon */}
                 <div style={styles.priceAndDelete}>
                   <div style={styles.price}>
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
-                  <button
+                  <FaTrash
                     onClick={() => dispatch(removeFromCart(item.id))}
-                    style={styles.deleteButton}
-                  >
-                    Delete
-                  </button>
+                    style={styles.trashIcon}
+                  />
                 </div>
               </div>
             </div>
           ))}
-          <hr />
-          <h3 className="total">Total: ${totalPrice.toFixed(2)}</h3>
-        </>
+
+          <hr style={{ margin: "20px 0" }} />
+          <h3 style={{ textAlign: "right" }}>
+            Total: ${totalPrice.toFixed(2)}
+          </h3>
+        </div>
       )}
     </div>
   );
@@ -82,51 +89,45 @@ const CartPage = () => {
 export default CartPage;
 
 const styles = {
-  priceAndDelete: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "8px",
-  },
-  price: {
-    fontWeight: "bold",
-    color: "#333",
-  },
   cartItem: {
     display: "flex",
+    flexDirection: "row",
     alignItems: "flex-start",
     marginBottom: "20px",
     borderBottom: "1px solid #ddd",
     paddingBottom: "15px",
+    flexWrap: "wrap", // mobile friendly
   },
   image: {
     width: "80px",
     height: "80px",
     objectFit: "cover",
     borderRadius: "8px",
-    marginRight: "20px",
+    marginRight: "15px",
   },
   detailsContainer: {
     display: "flex",
     justifyContent: "space-between",
-    width: "100%",
+    flex: 1,
+    minWidth: "200px",
+    marginTop: "5px",
   },
   itemDetails: {
     flex: 1,
   },
   itemName: {
     fontWeight: "bold",
-    marginBottom: "8px",
+    display: "block",
+    marginBottom: "6px",
   },
   description: {
     fontSize: "14px",
     color: "#555",
+    marginBottom: "10px",
   },
   quantityControls: {
     display: "flex",
     alignItems: "center",
-    marginTop: "10px",
-    marginRight:"100px",
     gap: "10px",
   },
   qtyButton: {
@@ -135,22 +136,24 @@ const styles = {
     border: "1px solid #ccc",
     cursor: "pointer",
     backgroundColor: "#f0f0f0",
-    color:"black"
-    
-    
   },
   qtyText: {
     minWidth: "20px",
     textAlign: "center",
   },
-  deleteButton: {
-    alignSelf: "flex-start",
-    backgroundColor: "#ff4d4d",
-    color: "white",
-    border: "none",
-    padding: "8px 12px",
-    borderRadius: "4px",
+  priceAndDelete: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "10px",
+  },
+  price: {
+    fontWeight: "bold",
+    color: "#333",
+  },
+  trashIcon: {
+    color: "#ff4d4d",
     cursor: "pointer",
-    height: "fit-content",
+    fontSize: "18px",
   },
 };

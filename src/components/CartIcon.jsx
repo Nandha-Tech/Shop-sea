@@ -1,8 +1,15 @@
-// src/components/CartIcon.js
 import React from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { Badge, IconButton, styled } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  color: "white",
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+  },
+}));
 
 const CartIcon = () => {
   const navigate = useNavigate();
@@ -10,10 +17,11 @@ const CartIcon = () => {
   const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="cart-icon-container" onClick={() => navigate("/cart")}>
-      <FaShoppingCart size={28} className="cart-icon" />
-      {totalCount > 0 && <span className="cart-badge">{totalCount}</span>}
-    </div>
+    <StyledIconButton onClick={() => navigate("/cart")}>
+      <Badge badgeContent={totalCount} color="error" showZero={false}>
+        <ShoppingCart />
+      </Badge>
+    </StyledIconButton>
   );
 };
 
